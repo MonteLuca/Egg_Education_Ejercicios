@@ -1,15 +1,17 @@
 package com.egg.noticia.entidades;
 
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 /**
  * @author Luca Monte
  */
 @Entity
-@Table(name = "NOTICIAS")
 public class Noticia {
     
     //Atributos
@@ -21,6 +23,9 @@ public class Noticia {
     
     private String cuerpo;
     
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date alta;
+    
     //Constructor vacio
 
     public Noticia() {
@@ -29,14 +34,13 @@ public class Noticia {
     
     //Constructor con parametros
 
-    public Noticia(Long id, String titulo, String cuerpo) {
-        
+    public Noticia(Long id, String titulo, String cuerpo, Date alta) {
         this.id = id;
         this.titulo = titulo;
         this.cuerpo = cuerpo;
-        
+        this.alta = alta;
     }
-    
+
     //Getters and Setters
 
     public Long getId() {
@@ -62,5 +66,15 @@ public class Noticia {
     public void setCuerpo(String cuerpo) {
         this.cuerpo = cuerpo;
     }
+
+    public Date getAlta() {
+        return alta;
+    }
+
+    public void setAlta(Date alta) {
+        this.alta = alta;
+    }
+    
+    
     
 }

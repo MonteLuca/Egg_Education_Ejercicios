@@ -6,22 +6,23 @@ import com.egg.noticia.repositorios.noticiaRepositorio;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import javax.transaction.Transactional;
+import net.iharder.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 /**
  * 
  * @author Luca Monte
  */
 @Service
 public class noticiaServicios {
-    
+
     @Autowired
     private noticiaRepositorio noticiaRepositorio;
     
     @Transactional //Es establecer que si el metodo se ejecuta sin hacer excepciones guarda una noticia en la base de datos, de caso contrario no.
-    public void crearNoticia(String titulo, String cuerpo) throws MiException {
+    public void crearNoticia(String titulo, String cuerpo, MultipartFile imagen) throws MiException {
         
         validar(titulo, cuerpo);
         
@@ -32,6 +33,20 @@ public class noticiaServicios {
         noticia.setCuerpo(cuerpo);
         
         noticia.setAlta(new Date());
+        
+        if (!imagen.isEmpty()) {
+            
+            try {
+                
+                noticia.setImagen(Base64.encodeBytes(imagen.getBytes()));
+                
+            } catch (Exception e) {
+                
+                throw new MiException("La imagen tuvo un error");
+                
+            }
+            
+        }
         
         noticiaRepositorio.save(noticia);
         

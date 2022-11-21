@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.multipart.MultipartFile;
 /**
  * @author Luca Monte
  */
@@ -29,17 +30,17 @@ public class NoticiaControlador {
     }
     
     @PostMapping("/registro")
-    public String registro(@RequestParam String titulo,@RequestParam String cuerpo, ModelMap modelo) {
+    public String registro(@RequestParam String titulo,@RequestParam String cuerpo,@RequestParam("file") MultipartFile imagen, ModelMap modelo) {
         
         try {
             
-            noticiaServicio.crearNoticia(titulo, cuerpo);
+            noticiaServicio.crearNoticia(titulo, cuerpo,imagen);
             
             modelo.put("exito", "La noticia fue cargada correctamente");
         
             return "noticia_form.html";
             
-        } catch (MiException ex) {
+        } catch (Exception ex) {
             
             modelo.put("error", ex.getMessage());
         

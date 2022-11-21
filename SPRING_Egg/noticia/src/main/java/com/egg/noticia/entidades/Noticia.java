@@ -1,14 +1,15 @@
 package com.egg.noticia.entidades;
 
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 /**
+ * 
  * @author Luca Monte
  */
 @Entity
@@ -26,6 +27,9 @@ public class Noticia {
     @Temporal(TemporalType.TIMESTAMP)
     private Date alta;
     
+    @Column(nullable = false, columnDefinition = "MEDIUMTEXT")
+    private String imagen;
+
     //Constructor vacio
 
     public Noticia() {
@@ -34,11 +38,12 @@ public class Noticia {
     
     //Constructor con parametros
 
-    public Noticia(Long id, String titulo, String cuerpo, Date alta) {
+    public Noticia(Long id, String titulo, String cuerpo, Date alta, String imagen) {
         this.id = id;
         this.titulo = titulo;
         this.cuerpo = cuerpo;
         this.alta = alta;
+        this.imagen = imagen;
     }
 
     //Getters and Setters
@@ -74,7 +79,12 @@ public class Noticia {
     public void setAlta(Date alta) {
         this.alta = alta;
     }
-    
-    
-    
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    } 
 }

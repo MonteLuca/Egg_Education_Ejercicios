@@ -20,14 +20,14 @@
             </div>
         </nav>
         <div class="container position-absolute top-50 start-50 translate-middle shadow-lg p-2 mb-5 bg-body rounded border border-secondary">
-            <form action="/noticia/registro" method="POST">
+            <form th:action="@{/noticia/registro}" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Titulo de la noticia</label>
                     <input name="titulo" type="text" class="form-control" id="exampleFormControlInput1">
                 </div>
                 <div class="mb-3">
-                    <label for="formFile" class="form-label">Cargar Imagen</label>
-                    <input class="form-control" type="file" id="formFile">
+                    <label for="imagen" class="form-label">Cargar Imagen</label>
+                    <input name="file" class="form-control" type="file" id="imagen">
                 </div>
                 <div class="mb-3">
                     <label for="cuerpoNoticia" class="form-label">Cuerpo de la noticia</label> <br>
@@ -36,6 +36,7 @@
                 <button type="submit" class="btn btn-primary"> Cargar </button>
             </form>
             <br>
+            
             <div th:if="${error != null}" class="alert alert-danger" role="alert">
                 <h5>ERROR</h5>
                 <p th:text="${error}"></p>
